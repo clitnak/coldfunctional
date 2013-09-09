@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<config>
+	<info>
+		<id>26CEEBBE-5817-47E6-A1f1-751D6C29847B</id>
+		<version>0.1</version>
+		<name>coldfunctional</name>
+		<type>server</type>
+		<label>coldfunctional</label>
+		<description>Functional extension to Railo</description>
+		<created>2013-August-08 22:13</created> 
+		<category>Core Extension</category>
+		<author>Colby Litnak</author>
+		<image>http://preview.getrailo.org/logos/mongodb-logo.png</image>
+		<mailinglist>http://groups.google.com/group/railo-beta</mailinglist>
+		<support>http://groups.google.com/group/railo-beta</support>
+		<documentation>http://wiki.getrailo.com/wiki/extensions:mongodb</documentation>
+	</info>
+</config>
+

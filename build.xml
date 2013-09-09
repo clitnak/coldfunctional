@@ -1,0 +1,73 @@
+<project name="cffunc" default="buildExtension" basedir=".">
+    
+	<description>Ant build file to build the cfunc extension</description>
+
+	<!-- Load properties -->
+	<property file="build.properties"/>
+	
+	<!-- Set jars -->
+	<path id="railo.classpath">
+		<fileset dir="${railo.dir}/railo-java/libs"/>
+		<!--<fileset dir="${railo.install}"/>-->
+		<pathelement location="${railo.dir}/railo-java/railo-core/build/classes"/>
+	</path>
+
+    <target name="clean" description="Clears the build and dist directories.">
+    	<echo>Deleting ${build.dir} and ${dist.dir}</echo>
+    	<delete dir="${build.dir}" />
+    	<delete dir="${jar.dir}" />
+    	<delete file="${config.xml.file}" />
+    	<delete dir="${dist.dir}"/>
+    </target>
+	
+    <target name="init" depends="clean" description="Creates nessesary directories.">
+    	<echo>Creating the build and dist directories.</echo>
+    	<mkdir dir="${build.dir}/classes"/>
+    	<mkdir dir="${dist.dir}"/>
+    </target>
+	
+	<target name="compileRailo" depends="init" description="Compiles railo">
+		<ant dir="${railo.dir}/railo-java/railo-core/" target="compile" inheritall="false" />
+	</target>
+		
+    <target name="compile" depends="init" description="Compiles the classes.">
+        <echo>Compiling source</echo>
+        <javac srcdir="${src.dir}" destdir="${build.dir}/classes" compiler="javac1.5" encoding="ISO-8859-1" fork="true" memorymaximumsize="512m">
+        	<classpath>
+        		<path refid="railo.classpath" />
+        	</classpath>
+        </javac>
+    </target>
+	
+    <target name="calculateVersion" description="calculates the version of the build">
+        <echo>Calculating Version</echo>
+    	<buildnumber />
+    	<property name="version" value="${major.and.minor}.${build.number}" />
+    </target>
+	
+    <target name="package" depends="compile,calculateVersion" description="Creates the the cfunc.jar file.">
+        <echo>Packaging the coldfunctional.jar</echo>
+    	<jar destfile="${jar.dir}/coldfunctional.jar">
+			<fileset dir="${build.dir}/classes" />
+		</jar>
+    	<copy file="config.xml" tofile="${config.xml.file}" />
+    	<replace file="${config.xml.file}" token="@@version@@" value="${version}" />
+    	<copy file="Install.cfc" toDir="${extension.dir}" />
+    	<copy file="coldfunctional.fld" toDir="${fld.dir}" />
+    	<copy file="LICENSE" toFile="${extension.dir}/license.txt" />
+    </target>
+		
+    <target name="buildExtension" depends="package" description="Deploy cffunc to extension provider">
+    	<echo message="Extension available at ${dist.dir}\extension.rep" />
+    	<zip destfile="${dist.dir}\extension.zip" basedir="${extension.dir}" />
+    	
+    </target>
+	
+	<target name="deployToTestExtensionProvider" depends="buildExtension" description="deploys extension to test extension provider">
+		<copy file="${dist.dir}\extension.zip" toDir="${extension.provider.dir}/extensions" />
+	</target>
+
+	<target name="publishFullDocumentation" description="deploys all documentation to litnak.com/coldfunctional">
+		
+	</target>
+</project>

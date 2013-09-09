@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE func-lib PUBLIC "-//Railo//DTD CFML Function Library 1.0//EN"
+	"dtd/web-cfmfunctionlibrary_1_0.dtd">
+<func-lib>
+	<flib-version>1.00</flib-version>
+	<short-name>Coldfunctional</short-name>
+	<uri>http://www.litnak.com/coldfunctional</uri>
+	<display-name>ColdFunctional: Higher-Order Functions for CFML</display-name>
+	<description>functional extensions to the cfml language</description>
+	<!-- structMap -->
+	
+
+<!-- 
+	Map()
+ -->
+
+	<function family="map">
+		<name>structMap</name>
+		<class>org.litnak.coldfunctional.map.StructMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new Struct that has all entries mapped with the mapper function.</description>
+		<argument>
+			<name>struct</name>
+			<type>struct</type>
+			<required>Yes</required>
+			<description>struct to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>the function/closure that will map each item</description>
+			<signature>function(any value):any</signature>
+		</argument>
+		<return>
+			<type>struct</type>
+		</return>
+	</function>
+	
+	<function family="map">
+		<name>arrayMap</name>
+		<class>org.litnak.coldfunctional.map.ArrayMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new array that has all entries mapped with the mapper function.</description>
+		<argument>
+			<name>array</name>
+			<type>array</type>
+			<required>Yes</required>
+			<description>array to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(any value):any].</description>
+		</argument>
+		<return>
+			<type>array</type>
+		</return>
+	</function>
+
+	<function family="map">
+		<name>queryMap</name>
+		<class>org.litnak.coldfunctional.map.QueryMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new query that has all records mapped with the mapper function.</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>query to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(struct record):any].</description>
+		</argument>
+		<return>
+			<type>query</type>
+		</return>
+	</function>
+	
+	<function family="map">
+		<name>map</name>
+		<class>org.litnak.coldfunctional.map.Map</class>
+		<description>This function maps elements in arrays, structs, or queries with a mapper function</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array, struct, or query to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(any value):any].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+
+<!-- 
+	Filter()
+ -->
+
+	<function family="filter">
+		<name>queryFilter</name>
+		<member-name>filter</member-name>
+		<class>org.litnak.coldfunctional.filter.QueryFilter</class>
+		<description>This function filters rows in a query with a filter function</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>the query to filter</description>
+		</argument>
+		<argument>
+			<name>filter</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>filter can be a function/closure that implements the following signature [function(Struct value):boolean].</description>
+		</argument>
+		<return>
+			<type>query</type>
+		</return>
+	</function>
+	
+	<function family="filter">
+		<name>filter</name>
+		<class>org.litnak.coldfunctional.filter.Filter</class>
+		<description>This function filters elements in arrays, structs, or queries with a filter function</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array, struct, or query to filter</description>
+		</argument>
+		<argument>
+			<name>filter</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>filter can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+
+<!-- 
+	Each()
+ -->
+
+	<function family="each">
+		<name>queryEach</name>
+		<member-name>each</member-name>
+		<class>org.litnak.coldfunctional.each.QueryEach</class>
+		<description>This function executes the function for each record</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>the query to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>eacher can be a function/closure that implements the following signature [function(Struct value):any].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+	
+	<function family="each">
+		<name>each</name>
+		<class>org.litnak.coldfunctional.each.Each</class>
+		<description>This function applies the function to each element in arrays, structs, or queries</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array, struct, or query to process</description>
+		</argument>
+		<argument>
+			<name>filter</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>filter can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+
+<!-- 
+	Reduce()
+ -->
+
+	<function family="reduce">
+		<name>structReduce</name>
+		<class>org.litnak.coldfunctional.reduce.StructReduce</class>
+		<member-name>reduce</member-name>
+		<description>This function returns the aggregation of the struct values</description>
+		<argument>
+			<name>struct</name>
+			<type>struct</type>
+			<required>Yes</required>
+			<description>struct to reduce</description>
+		</argument>
+		<argument>
+			<name>reducer</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>reducer can be a function/closure that implements the following signature [function(any value1, any value2):any].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+	
+	<function family="reduce">
+		<name>arrayReduce</name>
+		<class>org.litnak.coldfunctional.reduce.ArrayReduce</class>
+		<member-name>reduce</member-name>
+		<description>This function returns the aggregation of the array values</description>
+		<argument>
+			<name>array</name>
+			<type>array</type>
+			<required>Yes</required>
+			<description>array to reduce</description>
+		</argument>
+		<argument>
+			<name>reducer</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>reducer can be a function/closure that implements the following signature [function(any value1, any value2):any].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+
+	<function family="reduce">
+		<name>reduce</name>
+		<class>org.litnak.coldfunctional.reduce.Reduce</class>
+		<description>This function reduces arrays and structs with the provided reducer function</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array or struct to reduce</description>
+		</argument>
+		<argument>
+			<name>reducer</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(any value1, any value2):any].</description>
+		</argument>
+		<return>
+			<type>any</type>
+		</return>
+	</function>
+
+
+<!-- 
+	All()
+ -->
+	<function family="all">
+		<name>structAll</name>
+		<class>org.litnak.coldfunctional.all.StructAll</class>
+		<member-name>all</member-name>
+		<description>This function returns true if all elements in the array pass the function test</description>
+		<argument>
+			<name>struct</name>
+			<type>struct</type>
+			<required>Yes</required>
+			<description>struct to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+
+	<function family="all">
+		<name>queryAll</name>
+		<class>org.litnak.coldfunctional.all.QueryAll</class>
+		<member-name>all</member-name>
+		<description>This function returns true if all records in the query pass the function test</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>query to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+	<function family="all">
+		<name>arrayAll</name>
+		<class>org.litnak.coldfunctional.all.ArrayAll</class>
+		<member-name>all</member-name>
+		<description>This function returns true if all elements in the array pass the function test</description>
+		<argument>
+			<name>array</name>
+			<type>array</type>
+			<required>Yes</required>
+			<description>array to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+	<function family="all">
+		<name>all</name>
+		<class>org.litnak.coldfunctional.all.All</class>
+		<description>This function returns true if all elements in the array, struct, or query pass the function test</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array, struct, or query to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value1):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+
+<!-- 
+	Any()
+ -->
+	<function family="any">
+		<name>structAny</name>
+		<class>org.litnak.coldfunctional.any.StructAny</class>
+		<member-name>any</member-name>
+		<description>This function returns true if any elements in the array pass the function test</description>
+		<argument>
+			<name>struct</name>
+			<type>struct</type>
+			<required>Yes</required>
+			<description>struct to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+
+	<function family="any">
+		<name>queryAny</name>
+		<class>org.litnak.coldfunctional.any.QueryAny</class>
+		<member-name>any</member-name>
+		<description>This function returns true if any records in the query pass the function test</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>query to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+	<function family="any">
+		<name>arrayAny</name>
+		<class>org.litnak.coldfunctional.any.ArrayAny</class>
+		<member-name>any</member-name>
+		<description>This function returns true if any elements in the array pass the function test</description>
+		<argument>
+			<name>array</name>
+			<type>array</type>
+			<required>Yes</required>
+			<description>array to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+	
+	<function family="any">
+		<name>any</name>
+		<class>org.litnak.coldfunctional.any.Any</class>
+		<description>This function returns true if any elements in the array, struct, or query pass the function test</description>
+		<argument>
+			<name>collection</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>array, struct, or query to process</description>
+		</argument>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be a function/closure that implements the following signature [function(any value1):boolean].</description>
+		</argument>
+		<return>
+			<type>boolean</type>
+		</return>
+	</function>
+
+</func-lib>

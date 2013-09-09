@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<config>
+	<info>
+		<id>26CEEBBE-5817-47E6-A1f1-751D6C29847B</id>
+		<version>@@version@@</version>
+		<name>coldfunctional</name>
+		<type>server</type>
+		<label>ColdFunctional</label>
+		<description>Functional programming extension</description>
+		<created>2013-August-08 22:13</created> 
+		<category>Core</category>
+		<author>Colby Litnak</author>
+		<image>http://www.litnak.com/coldfunctional/img/logo.png</image>
+		<mailinglist>http://groups.google.com/group/railo</mailinglist>
+		<support>http://groups.google.com/group/railo</support>
+		<documentation>http://www.litnak.com/coldfunctional/</documentation>
+	</info>
+</config>
+

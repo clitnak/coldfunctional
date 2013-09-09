@@ -1,0 +1,3 @@
+create railo web context pointing to this 'tests' folder's parent folder.
+In a Browser, run InstallTest.cfc?method=execute
+ 
