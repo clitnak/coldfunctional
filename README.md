@@ -7,6 +7,4 @@ coldfusion language, by providing more built-in higher-order functions. Just
 install the extension and restart Railo and you can start using this new 
 functionality.
 
-Check out the documentation at:
-
-<www.litnak.com/coldfunctional>
+Check out the [documentation](www.litnak.com/coldfunctional).
