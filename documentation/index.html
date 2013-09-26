@@ -245,22 +245,54 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 </section>
 
                     <footer>
-                        <h3>Future </h3>
-           
-
+                        <h3>Future Collection Functions</h3>
 						In the future this extension will provide many other higher order functions (check out scala, ruby, or clojure):
 						<ul>
 							<li> <code>groupBy</code> </li>
 							<li> <code>uniq</code> </li>
 							<li> <code>pluck</code> </li>
-							<li> <code>compose</code> (or <code>comp</code> or <code>andThen</code>) </li>
-							<li> <code>invoke</code> </li>
 							<li> ...and more</li>
 						</ul>
                     </footer>
                 </article>
 
+                <article id="function-functions">
+                    <header>
+                        <h1>Function Functions</h1>
+                        <p>
+							Functions that operate on other functions to produce new functions. 
+							Each function belongs in a family similar to the collection functions,
+							though these families are smaller. NOTE: the member function examples
+							will not work yet. We need to make some changes to the Railo core.
+						</p>
+                    </header>
+					<section>
+					<h2><code>Once</code> function family</h2>
+					<code>once</code> returns a function that will only be called once. 
+						In other words, the result is cached. 
+						<h5>Member Functions</h5>
+						<ul>
+							<li> <code class="example"> function.once()</code> </li>
+						</ul>
+						<h5>Explicit Functions</h5>
+						<ul>
+							<li> <code class="example"> functionOnce( function )</code> </li>
+						</ul>
+					</section>
 
+                    <footer>
+                        <h3>Future Function Functions</h3>
+						...say that ten times fast. In the future this extension will provide many other higher order functions:
+						<ul>
+							<li> <code>compose</code> (or <code>comp</code> or <code>andThen</code>) </li>
+							<li> <code>invoke</code> </li>
+							<li> <code>partial</code> </li>
+							<li> ...and more</li>
+						</ul>
+                    </footer>
+					
+
+				</article>
 
             </div> <!-- #main -->
         </div> <!-- #main-container -->
