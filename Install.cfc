@@ -16,7 +16,10 @@
         <cfargument name="path" type="string">
         <cfargument name="config" type="struct">
         <cfargument name="step" type="numeric">
-        <!--- no user input to validate --->
+      	<cfset local.minVersion = "4.1.1.000" />
+		<cfif server.railo.version lt local.minVersion >
+			<cfthrow type="coldfunctional.incompatable" message="ColdFunctional is not compatible with Railo version #server.railo.version#, must be version #local.minVersion# or greater" />	
+		</cfif>
     </cffunction>
     
     <cffunction name="install" returntype="string" output="false"
@@ -93,10 +96,11 @@
 			<cfif arguments.filesToDelete.size() eq 1>
 				<cfset local.s = "" />
 			</cfif>
-			<cfset arguments.successMessage &= "<br /> Please stop Railo and delete the following file#local.s#: <br />" />
+			<cfset arguments.successMessage &= "<br /> <span style='color:red;font-weight:bold;'>Please stop your Servlet Container and delete the following file#local.s#: <br />" />
 			<cfloop array="#arguments.filesToDelete#" index="local.i" item="local.fileName">
 				<cfset arguments.successMessage &= local.fileName&"<br />" />
 			</cfloop>
+			<cfset arguments.successMessage &= "</span>" />
 		<cfelse>
 			<cfset arguments.successMessage &= "<br /> Please restart Railo.<br />" />
 		</cfif>
@@ -117,11 +121,20 @@
     </cffunction>
 	
 	<cffunction name="_adminType" access="private" returntype="string">
-		<cfreturn request.adminType ?: "web" />
+		<cfif structKeyExists(request,"adminType")>
+			<cfreturn request.adminType />
+		<cfelse>
+			<cfreturn "web" />
+		</cfif>
 	</cffunction>
 
 	<cffunction name="_password" access="private" returntype="string">
-		<cfreturn session["password"&_adminType()] ?: "sysadmin" />
+		<cfset local.key = "password"&_adminType() />
+		<cfif structKeyExists(session,local.key)>
+			<cfreturn session[local.key] />
+		<cfelse>
+			<cfreturn "sysadmin" />
+		</cfif>
 	</cffunction>
 
 	<cffunction name="_installDirectory" access="private" returntype="array"
@@ -221,7 +234,7 @@
 	</cffunction>
 	
 	<cffunction name="_name" access="private">
-		<cfreturn "c#chr(402)#(n)" />
+		<cfreturn "ColdFunctional" />
 	</cffunction>
 	
 	<cffunction name="_addVersionToFileName" access="private" output="false" 

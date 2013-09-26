@@ -38,6 +38,13 @@
 		<cfset assertTrue(condition:arguments.expected eq arguments.actual,message:arguments.message) />
 	</cffunction>
 
+	<cffunction name="assertNotEquals" access="private">
+		<cfargument name="expected" type="any" />
+		<cfargument name="actual" type="any" default="test failure" />
+		<cfargument name="message" type="string" default="test failure" />
+		<cfset assertFalse(condition:arguments.expected eq arguments.actual,message:arguments.message) />
+	</cffunction>
+	
 	<cffunction name="fail" access="private">
 		<cfargument name="message" />
 		<cfset assertTrue(condition:false,message:arguments.message) />

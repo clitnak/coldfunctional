@@ -220,6 +220,30 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 </ul>
 </section>
 
+<section>
+<h2><code>All</code> function family</h2>
+<code>all</code> returns true if all elements in the collection passes the test
+
+<h5>Member Functions</h5>
+<ul>
+	<li> <code class="example"> array.all( function(value:any) { return boolean; } )</code> </li>
+	<li> <code class="example"> struct.all( function(value:any) { return boolean; } )</code> </li>
+	<li> <code class="example"> query.all( function(record:struct) { return boolean; } )</code> </li>
+</ul>
+<h5>Explicit Functions</h5>
+<ul>
+	<li> <code class="example"> ArrayAll( array, function )</code> </li>
+	<li> <code class="example"> StructAll( struct, function )</code> </li>
+	<li> <code class="example"> QueryAll( query, function )</code> </li>
+</ul>
+<h5>Implict Function</h5>
+<ul>
+	<li> <code class="example"> all( array, function )</code> </li>
+	<li> <code class="example"> all( struct, function )</code> </li>
+	<li> <code class="example"> all( query, function )</code> </li>
+</ul>
+</section>
+
                     <footer>
                         <h3>Future </h3>
            

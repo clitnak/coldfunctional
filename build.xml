@@ -45,17 +45,26 @@
     	<property name="version" value="${major.and.minor}.${build.number}" />
     </target>
 	
-    <target name="package" depends="compile,calculateVersion" description="Creates the the cfunc.jar file.">
+    <target name="package" depends="compile,calculateVersion,created" description="Creates the the cfunc.jar file.">
         <echo>Packaging the coldfunctional.jar</echo>
     	<jar destfile="${jar.dir}/coldfunctional.jar">
 			<fileset dir="${build.dir}/classes" />
 		</jar>
     	<copy file="config.xml" tofile="${config.xml.file}" />
     	<replace file="${config.xml.file}" token="@@version@@" value="${version}" />
+    	<replace file="${config.xml.file}" token="@@created@@" value="${created}" />
+
     	<copy file="Install.cfc" toDir="${extension.dir}" />
     	<copy file="coldfunctional.fld" toDir="${fld.dir}" />
     	<copy file="LICENSE" toFile="${extension.dir}/license.txt" />
     </target>
+	
+	<target name="created" description="sets the created property">
+		<tstamp>
+			<format property="created.raw" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>
+		<property name="created" value="{ts '${created.raw}'}" />
+	</target>
 		
     <target name="buildExtension" depends="package" description="Deploy cffunc to extension provider">
     	<echo message="Extension available at ${dist.dir}\extension.rep" />
@@ -67,6 +76,50 @@
 		<copy file="${dist.dir}\extension.zip" toDir="${extension.provider.dir}/extensions" />
 	</target>
 
+	<target name="deployDirectlyToSite" depends="buildExtension" description="deploys extension to test extension provider">
+		<!-- login -->
+		<exec executable="curl.exe">
+			<arg value="-X POST" />
+			<arg value="-b cookies.txt" />
+			<arg value="-c cookies.txt" />
+			<arg value="-F login_passwordserver=sysadmin" />
+			<arg value="-F lang=en" />
+			<arg value='"http://localhost:8080/railo-context/admin/server.cfm"' />
+		</exec>
+		<exec executable="curl.exe">
+			<arg value="-X POST" />
+			<arg value="-b cookies.txt" />
+			<arg value="-c cookies.txt" />
+			<arg value="-F login_passwordserver=sysadmin" />
+			<arg value="-F lang=en" />
+			<arg value='"http://localhost:8080/railo-context/admin/server.cfm"' />
+		</exec>
+		
+		<!-- upload extension -->
+		<exec executable="curl.exe" outputproperty="curl.output">
+			<arg value="-X POST" />
+			<arg value="-c cookies.txt" />
+			<arg value="-b cookies.txt" />
+			<arg value="-F extFile=@${dist.dir}\extension.zip" />
+			<arg value='"http://localhost:8080/railo-context/admin/server.cfm?action=extension.applications&amp;action2=upload"' />
+		</exec>
+		<!--- accept license agreement -->
+		<exec executable="curl.exe" outputproperty="curl.output">
+			<arg value="-X POST" />
+			<arg value="-c cookies.txt" />
+			<arg value="-b cookies.txt" />
+			<arg value="-F extFile=@${dist.dir}\extension.zip" />
+			<arg value='"http://localhost:8080/railo-context/admin/server.cfm?action=extension.applications&amp;action2=upload"' />
+		</exec>
+		<echo message="${curl.output}" />
+		<!--mainAction="uploadExt"
+		extFile=file
+		post
+		server.cfm?action=extension.applications&action2=upload
+		multipart/form-data-->
+		
+	</target>
+	
 	<target name="publishFullDocumentation" description="deploys all documentation to litnak.com/coldfunctional">
 		
 	</target>

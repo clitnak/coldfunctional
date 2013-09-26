@@ -3,8 +3,18 @@
 	Failures:
 	<ul>
 		<cfloop array="#results#" index="i" item="result">
-			<cfif isStruct(result)>
-				<li><cfdump var="#result.cfcatch#" label="#result.label#" expand="false"/></li>
+			<cfif result.status eq "fail">
+				<li><cfdump var="#result.error#" label="#result.label#" expand="false"/></li>
+			</cfif>
+		</cfloop>
+		<cfloop array="#results#" index="i" item="result">
+			<cfif result.status eq "skip">
+				<li>skipped: #result.label#</li>
+			</cfif>
+		</cfloop>
+		<cfloop array="#results#" index="i" item="result">
+			<cfif result.status eq "pass">
+				<li>passed: #result.label#</li>
 			</cfif>
 		</cfloop>
 	</ul>

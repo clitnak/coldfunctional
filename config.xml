@@ -1,19 +1,28 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<info>
-		<id>26CEEBBE-5817-47E6-A1f1-751D6C29847B</id>
-		<version>@@version@@</version>
 		<name>coldfunctional</name>
-		<type>server</type>
 		<label>ColdFunctional</label>
-		<description>Functional programming extension</description>
-		<created>2013-August-08 22:13</created> 
-		<category>Core</category>
+		<id>26CEEBBE-5817-47E6-A1f1-751D6C29847B</id>
+		<type>server</type>
+		<version>@@version@@</version>
+		<created>@@created@@</created> 
 		<author>Colby Litnak</author>
-		<image>http://www.litnak.com/coldfunctional/img/logo.png</image>
-		<mailinglist>http://groups.google.com/group/railo</mailinglist>
-		<support>http://groups.google.com/group/railo</support>
+		<email>colby@litnak.com</email>
+		<category>Core</category>
+		<support>https://github.com/clitnak/coldfunctional/issues</support>
+		<description><![CDATA[
+			Adds more functional programming language support, such as map(), reduce(), etc. and Functions
+			that work with query objects.
+			]]>
+		</description>
+		<mailinglist></mailinglist>
 		<documentation>http://www.litnak.com/coldfunctional/</documentation>
+		<image>http://www.litnak.com/coldfunctional/img/logo.png</image>
+		<railo_version>4.1.0.0</railo_version>
+		<paypal />
+		<packaged-by>Colby Litnak</packaged-by>
+		<video />
 	</info>
 </config>
 

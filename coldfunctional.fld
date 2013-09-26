@@ -448,4 +448,23 @@
 		</return>
 	</function>
 
+<!-- function functions -->
+<!-- ###################### -->
+
+<!-- once -->
+	<function>
+		<name>functionOnce</name>
+		<member-name>once</member-name>
+		<class>org.litnak.coldfunctional.once.Once</class>
+		<description>this function will make sure the function provided is only executed once</description>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be any function/closure</description>
+		</argument>
+		<return>
+			<type>function</type>
+		</return>
+	</function>
 </func-lib>

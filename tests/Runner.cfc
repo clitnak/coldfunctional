@@ -21,26 +21,28 @@
 					, ""
 				) />
 
+		<cfset local.result = {label:local.dotPath,status:"fail",error:{}} />
 		<cfif !_isBaseTest(local.dotPath)>
 			<cftry>
 				<cfset local.test = createObject("component",local.dotPath) />
 				<cfcatch>
-					<cfreturn {label:local.dotPath, cfcatch:cfcatch} />
+					<cfset local.result.error = cfcatch />
+					<cfreturn local.result />
 				</cfcatch>
 			</cftry>
 			<cfif structKeyExists(local.test,"execute")>
 				<cftry>
 					<cfset local.test.execute() />
-					<cfset local.result="pass" />
+					<cfset local.result.status="pass" />
 					<cfcatch>
-						<cfset local.result = {label:local.dotPath, cfcatch:cfcatch} />
+						<cfset local.result.error=cfcatch />
 					</cfcatch>
 				</cftry>
 			<cfelse>
-				<cfset local.result = "skip">
+				<cfset local.result.status = "skip">
 			</cfif>
 		<cfelse>
-			<cfset local.result = "skip" />
+			<cfset local.result.status = "skip" />
 		</cfif>
 		<cfreturn local.result>
 	</cffunction>
