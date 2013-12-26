@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE func-lib PUBLIC "-//Railo//DTD CFML Function Library 1.0//EN"
+	"dtd/web-cfmfunctionlibrary_1_0.dtd">
+<func-lib>
+	<flib-version>1.00</flib-version>
+	<short-name>Coldfunctional</short-name>
+	<uri>http://www.litnak.com/coldfunctional</uri>
+	<display-name>ColdFunctional: Higher-Order Functions for CFML</display-name>
+	<description>functional extensions to the cfml language</description>
+	<!-- structMap -->
+	
+
+<!-- 
+	Map()
+ -->
+
+	<function family="map">
+		<name>_structMap</name>
+		<class>org.litnak.coldfunctional.map.StructMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new Struct that has all entries mapped with the mapper function.</description>
+		<argument>
+			<name>struct</name>
+			<type>struct</type>
+			<required>Yes</required>
+			<description>struct to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>the function/closure that will map each item</description>
+			<signature>function(any value):any</signature>
+		</argument>
+		<return>
+			<type>struct</type>
+		</return>
+	</function>
+	
+	<function family="map">
+		<name>arrayMap</name>
+		<class>org.litnak.coldfunctional.map.ArrayMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new array that has all entries mapped with the mapper function.</description>
+		<argument>
+			<name>array</name>
+			<type>array</type>
+			<required>Yes</required>
+			<description>array to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(any value):any].</description>
+		</argument>
+		<return>
+			<type>array</type>
+		</return>
+	</function>
+
+	<function family="map">
+		<name>queryMap</name>
+		<class>org.litnak.coldfunctional.map.QueryMap</class>
+		<member-name>map</member-name>
+		<description>This function returns a new query that has all records mapped with the mapper function.</description>
+		<argument>
+			<name>query</name>
+			<type>query</type>
+			<required>Yes</required>
+			<description>query to map</description>
+		</argument>
+		<argument>
+			<name>mapper</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>mapper can be a function/closure that implements the following signature [function(struct record):any].</description>
+		</argument>
+		<return>
+			<type>query</type>
+		</return>
+	</function>
+
+</func-lib>

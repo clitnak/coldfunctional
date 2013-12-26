@@ -55,6 +55,9 @@
     	<replace file="${config.xml.file}" token="@@created@@" value="${created}" />
 
     	<copy file="Install.cfc" toDir="${extension.dir}" />
+    	<copy toDir="${extension.dir}/cfc">
+    		<fileset dir="cfc" />
+    	</copy>
     	<copy file="coldfunctional.fld" toDir="${fld.dir}" />
     	<copy file="LICENSE" toFile="${extension.dir}/license.txt" />
     </target>
