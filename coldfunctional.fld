@@ -467,4 +467,27 @@
 			<type>function</type>
 		</return>
 	</function>
+	
+<!-- partial -->
+	<function>
+		<name>functionPartial</name>
+		<member-name>partial</member-name>
+		<class>org.litnak.coldfunctional.partial.PartialFunction</class>
+		<description>this function performs partial application of arguments to the function</description>
+		<argument>
+			<name>function</name>
+			<type>function</type>
+			<required>Yes</required>
+			<description>can be any function/closure</description>
+		</argument>
+		<argument>
+			<name>args</name>
+			<type>any</type>
+			<required>No</required>
+			<description>a struct or an array of arguments</description>
+		</argument>
+		<return>
+			<type>function</type>
+		</return>
+	</function>
 </func-lib>

@@ -34,7 +34,8 @@
 	<cffunction name="assertEquals" access="private">
 		<cfargument name="expected" type="any" />
 		<cfargument name="actual" type="any" default="test failure" />
-		<cfargument name="message" type="string" default="test failure" />
+		<cfargument name="message" type="string" />
+		<cfparam name="arguments.message" default="test failure: expected[#arguments.expected#] but was [#arguments.actual#]" />
 		<cfset assertTrue(condition:arguments.expected eq arguments.actual,message:arguments.message) />
 	</cffunction>
 

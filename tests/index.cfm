@@ -4,7 +4,7 @@
 	<ul>
 		<cfloop array="#results#" index="i" item="result">
 			<cfif result.status eq "fail">
-				<li><cfdump var="#result.error#" label="#result.label#" expand="false"/></li>
+				<li><cfdump var="#result.error#" label="#result.label#" expand="true"/></li>
 			</cfif>
 		</cfloop>
 		<cfloop array="#results#" index="i" item="result">

@@ -66,9 +66,19 @@
                         <p>
 							ColdFunctional is a core language extension for Railo, inspired by Underscore, Ruby, 
 							Scala, and Clojure. It adds more <em>functional</em> programming language support to the 
-							coldfusion language, by providing more built-in higher-order functions. Just 
-							install the extension and restart Railo and you can start using this new 
-							functionality.
+							coldfusion language, by providing more built-in, higher-order functions. 
+							It is a buffet-style extension, meaning, you don't have to install every new function.
+						</p>
+						<p>
+							NOTE: Railo is a great CFML engine (best out there, IMO). 
+							Unfortunately there is an <a href="https://issues.jboss.org/browse/RAILO-2761">issue</a>
+							where Railo built-in functions override user-defined functions.
+							That means that if you have any user-defined functions with the same name as a function provided by Coldfunctional, whether authored by you or used
+							in a framework that your app depends on, this extension may break it.
+							Fortunately, this extension allows you to rename functions on install, to help you avoid conflicts.
+							For example, If you are using <a href="http://wiki.coldbox.org/wiki/WireBox.cfm">Wirebox</a>, you may want to rename the <code>map</code> method to something else (like <code>_map</code>) during Coldfunctional installation, in order to avoid this conflict. 
+							
+							
 						</p>
                     </header>
                     <footer>
@@ -108,7 +118,7 @@
 	<div class="builtin" /> </li>
 	<li> <code class="example"> QueryEach( query, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> each( array, function )</code> 
 	<div class="builtin" /> </li>
@@ -136,7 +146,7 @@ There are three ways to to use the </code>map</code>
 	<li> <code class="example"> StructMap( struct, function )</code> </li>
 	<li> <code class="example"> QueryMap( query, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> map( array, function )</code> </li>
 	<li> <code class="example"> map( struct, function )</code> </li>
@@ -153,7 +163,7 @@ predicate function.
 <ul>
 	<li> <code class="example"> array.filter( function(value:any) { return boolean; } )</code> 
 	<div class="builtin" /> </li>
-	<li> <code class="example"> struct.filter( function(value:any) { return boolean; } )</code> 
+	<li> <code class="example"> struct.filter( function(key:any,value:any) { return boolean; } )</code> 
 	<div class="builtin" /> </li>
 	<li> <code class="example"> query.filter( function(record:struct) { return boolean; } )</code> </li>
 </ul>
@@ -165,7 +175,7 @@ predicate function.
 	<div class="builtin" /> </li>
 	<li> <code class="example"> QueryFilter( query, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> filter( array, function )</code> </li>
 	<li> <code class="example"> filter( struct, function )</code> </li>
@@ -187,7 +197,7 @@ predicate function.
 	<li> <code class="example"> ArrayReduce( array, function )</code> </li>
 	<li> <code class="example"> StructReduce( struct, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> reduce( array, function )</code> </li>
 	<li> <code class="example"> reduce( struct, function )</code> </li>
@@ -212,7 +222,7 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 	<li> <code class="example"> StructAny( struct, function )</code> </li>
 	<li> <code class="example"> QueryAny( query, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> any( array, function )</code> </li>
 	<li> <code class="example"> any( struct, function )</code> </li>
@@ -236,7 +246,7 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 	<li> <code class="example"> StructAll( struct, function )</code> </li>
 	<li> <code class="example"> QueryAll( query, function )</code> </li>
 </ul>
-<h5>Implict Function</h5>
+<h5>Implicit Function</h5>
 <ul>
 	<li> <code class="example"> all( array, function )</code> </li>
 	<li> <code class="example"> all( struct, function )</code> </li>
@@ -262,13 +272,18 @@ to reduce a query to a single row. If you do think this would be useful, let me 
                         <p>
 							Functions that operate on other functions to produce new functions. 
 							Each function belongs in a family similar to the collection functions,
-							though these families are smaller. NOTE: the member function examples
-							will not work yet. We need to make some changes to the Railo core.
+							though these families are smaller, consisting of a vanilla explicit function and
+							a member function. NOTE: the member functions will not work until 
+							<a href="https://issues.jboss.org/browse/RAILO-2625">
+								this feature 
+							</a> is implemented in the Railo core. Until then, you can use
+							still use the explicit functions.
 						</p>
-                    </header>
+					</header>
 					<section>
+					
 					<h2><code>Once</code> function family</h2>
-					<code>once</code> returns a function that will only be called once. 
+					<code>once</code> returns a function that will only be called once.  
 						In other words, the result is cached. 
 						<h5>Member Functions</h5>
 						<ul>
@@ -278,6 +293,57 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 						<ul>
 							<li> <code class="example"> functionOnce( function )</code> </li>
 						</ul>
+					<p>
+						<code> Once</code> is moderately useful for a component as well. Railo has built-in function caching.
+						For most, if not all, use cases function caching may be the more logical choice over using <code>once</code>
+						Here is how you do it anyways, in case you crave the more expressive nature of
+						higher-order functions.
+						<pre><code>
+&lt;cfcomponent&gt;
+	&lt;cffunction name="getIncome"&gt;
+		&lt;cfreturn getMonthlyIncome()*12 /&gt;
+	&lt;/cffunction&gt;
+	&lt;cfset getIncome = getIncome.once() /&gt;
+&lt;/cfcomponent&gt;
+						</code></pre>
+					</p>
+					</section>
+
+					<section>
+					
+					<h2><code>Partial</code> function family</h2>
+						The <code>partial</code> function, when provided a function and some arguments, will return a function that has the arguments already applied.
+						If the resulting function is called, it will only need the remaining arguments, if any. 
+						Partial application of arguments can be done via named or unnamed arguments, by passing an array or struct.
+						<h5>Member Functions</h5>
+						<ul>
+							<li> <code class="example"> function.partial( [] )</code> </li>
+							<li> <code class="example"> function.partial( {} )</code> </li>
+						</ul>
+						<h5>Explicit Functions</h5>
+						<ul>
+							<li> <code class="example"> functionPartial( function, [] )</code> </li>
+							<li> <code class="example"> functionPartial( function, {} )</code> </li>
+						</ul>
+					<p>
+					
+						Here are a few examples of how to use <code>partial</code>
+					<pre><code>
+function add(x,y) {
+	return x + y;
+}
+
+function power(x,y) {
+	return x^y;
+}
+
+addOne = functionPartial( add, [1] );
+five = addOne( 4 );
+
+square = functionPartial( power, {y: 2} );
+twentyfive = square( 5 );
+						</code></pre>
+					</p>
 					</section>
 
                     <footer>
@@ -286,7 +352,6 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 						<ul>
 							<li> <code>compose</code> (or <code>comp</code> or <code>andThen</code>) </li>
 							<li> <code>invoke</code> </li>
-							<li> <code>partial</code> </li>
 							<li> ...and more</li>
 						</ul>
                     </footer>
