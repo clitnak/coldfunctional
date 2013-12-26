@@ -490,4 +490,20 @@
 			<type>function</type>
 		</return>
 	</function>
+	
+<!-- constantly -->
+	<function>
+		<name>constantly</name>
+		<class>org.litnak.coldfunctional.constantly.Constantly</class>
+		<description>this function returns a function that will always return the argument provided</description>
+		<argument>
+			<name>result</name>
+			<type>any</type>
+			<required>Yes</required>
+			<description>any argument to always return the value provided</description>
+		</argument>
+		<return>
+			<type>function</type>
+		</return>
+	</function>
 </func-lib>

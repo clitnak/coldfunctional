@@ -13,7 +13,7 @@ import railo.runtime.type.UDF;
 import railo.runtime.type.UDFPlus;
 import railo.runtime.type.Collection.Key;
 
-public abstract class AbstractFunctionWrapper  implements UDFPlus { 
+public abstract class AbstractFunctionWrapper implements UDFPlus { 
 
 	private static final long serialVersionUID = -5305872728144533697L;
 	protected UDFPlus udf;

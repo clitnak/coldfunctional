@@ -312,6 +312,7 @@ to reduce a query to a single row. If you do think this would be useful, let me 
 					<section>
 					
 					<h2><code>Partial</code> function family</h2>
+						(since v0.2.0) 
 						The <code>partial</code> function, when provided a function and some arguments, will return a function that has the arguments already applied.
 						If the resulting function is called, it will only need the remaining arguments, if any. 
 						Partial application of arguments can be done via named or unnamed arguments, by passing an array or struct.
@@ -343,6 +344,27 @@ five = addOne( 4 );
 square = functionPartial( power, {y: 2} );
 twentyfive = square( 5 );
 						</code></pre>
+					</p>
+					</section>
+
+					<section>
+					
+					<h2><code>constantly</code> function</h2>
+						(since v0.2.2) 
+						The <code>constantly</code> function, takes one and only one argument and returns a function that returns 
+						that value regardless of what arguments are provided to it.
+						<h5>Functions</h5>
+						<ul>
+							<li> <code class="example"> constantly( 5 )</code> </li>
+							<li> <code class="example"> constantly( "hello world" )</code> </li>
+						</ul>
+					<p>
+					
+						<code>constantly</code> in action:
+					<pre><code>
+fiver = constantly( 5 );
+six = five( 8, 12, 251 ) + 1;
+					</code></pre>
 					</p>
 					</section>
 
