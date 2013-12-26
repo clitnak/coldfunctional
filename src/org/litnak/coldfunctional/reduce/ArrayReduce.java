@@ -19,7 +19,7 @@ public class ArrayReduce extends BIF{
 	private static final long serialVersionUID = -3536069174087530428L;
 
 	public static Object call(PageContext pc , Array arr, UDF reducer) throws PageException {
-		if (arr.size() == 0) return new ExpressionException("array provided to ArrayReduce must not be empty"); 
+		if (arr.size() == 0) throw new ExpressionException("array provided to ArrayReduce must not be empty"); 
 		if (arr.size() == 1) return arr.getE(1);
 		Object lastValue = arr.getE(1);
 		for(int i = 2; i<= arr.size(); i++) {
